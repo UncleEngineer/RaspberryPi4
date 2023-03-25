@@ -3,6 +3,7 @@ import csv
 import Adafruit_DHT
 import time
 import RPi.GPIO as GPIO
+from datetime import datetime
 
 ##########LCDLIB###########
 import lcdlib
@@ -61,8 +62,10 @@ class Sensor:
         #print('Temperature: {:.2f}°C\nHumidity: {:.2f}%'.format(temp,humid))
 
         if writecsv == True:
-            data = [temp,humid]
+            dt = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
+            data = [dt,temp,humid]
             writetocsv(data, self.name)
+            print('Saved!',data)
 
 
 temp1 = Sensor('DHT22-101')
@@ -77,7 +80,7 @@ while True:
     except:
         pass
     #print('------')
-    time.sleep(2)
+    time.sleep(5)
 
 
 
